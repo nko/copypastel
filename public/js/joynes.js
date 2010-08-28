@@ -1,3 +1,12 @@
-$.getScript('/js/dynamicaudio-min.js');
-$.getScript('/js/jquery.dimensions.min.js');
-$.getScript('/js/jsnes.js');
+$.include = function(url){
+  $.ajax({
+    'url': url,
+    'dataType': 'script',
+    'type': 'GET',
+    'async': false
+  })
+}
+
+$.include('/js/dynamicaudio-min.js');
+$.include('/js/jquery.dimensions.min.js');
+$.include('/js/jsnes.js');
