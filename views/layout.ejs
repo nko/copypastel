@@ -7,34 +7,38 @@
     <script type="text/javascript" src="/js/joynes.js"></script>
     <script type="text/javascript" src="/js/tools.js"></script>
 		<script>
-		// Socket init
-		io.setPath('/');
-		this.socket = new io.Socket(null, {port: 80});
-		socket.connect();
-
-		$(document).ready( function(){
-			nes1 = new JSNES({
-				'ui': $("#emulator_1").JSNESUI({
-					"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-				})
+			// Socket init
+			io.setPath('/');
+			this.socket = new io.Socket(null, {port: 80});
+			socket.connect();
+			
+			$(document).ready( function(){
+				masterNes = new JSNES({
+					'ui': $("#emulator_1").JSNESUI({
+						"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+					})
+				});
+			
+				master = new joynes.Master(masterNes); 
+			
+				slaveNes = new JSNES({
+					'ui': $("#emulator_2").JSNESUI({
+						"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+					})
+				});
+			
+				slave = new joynes.Slave(slaveNes);
+			
+				//logger = new Logger('#console');
 			});
-
-			nes2 = new JSNES({
-				'ui': $("#emulator_2").JSNESUI({
-					"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-				})
+			
+			// Socket.IO section
+			
+			socket.on('message', function(obj){
+				console.log(obj);
 			});
-
-			//logger = new Logger('#console');
-		});
-
-		// Socket.IO section
-
-		socket.on('message', function(obj){
-			console.log(obj);
-		});
-
-		// socket.send to send messages to server
+			
+			// socket.send to send messages to server
 		</script>
   </head>
   <body>
