@@ -15,9 +15,11 @@ joynes.Master.prototype = {
   // Address will be 0xX000 or 0xX001
   ppu_extractor : function(address)  {
     var regv = this.nes.cup.mem[address & 0x2007 | 0x2000]
-    this.client.pushRegister(regv]);
+    this.client.pushRegister(regv);
     return regv;
   }
+  
+  
 }
 
 $.extend(joynes.Master.prototype, joynes.Base.prototype);
