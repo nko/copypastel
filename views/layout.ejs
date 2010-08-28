@@ -6,23 +6,36 @@
     <script type="text/javascript" src="/js/socket.io.js"></script>
     <script type="text/javascript" src="/js/joynes.js"></script>
     <script type="text/javascript" src="/js/tools.js"></script>
-    <script>
-       $(document).ready( function(){
-        nes1 = new JSNES({
-          'ui': $("#emulator_1").JSNESUI({
-            "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-          })
-        });
+		<script>
+		// Socket init
+		io.setPath('/');
+		this.socket = new io.Socket(null, {port: 80});
+		socket.connect();
 
-        nes2 = new JSNES({
-          'ui': $("#emulator_2").JSNESUI({
-            "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-          })
-        });
+		$(document).ready( function(){
+			nes1 = new JSNES({
+				'ui': $("#emulator_1").JSNESUI({
+					"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+				})
+			});
 
-        //logger = new Logger('#console');
-      });
-    </script>
+			nes2 = new JSNES({
+				'ui': $("#emulator_2").JSNESUI({
+					"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+				})
+			});
+
+			//logger = new Logger('#console');
+		});
+
+		// Socket.IO section
+
+		socket.on('message', function(obj){
+			console.log(obj);
+		});
+
+		// socket.send to send messages to server
+		</script>
   </head>
   <body>
     <%- body %>
