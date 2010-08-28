@@ -20,6 +20,7 @@ joynes.Base.prototype = {
   ppu_registers : new Array(8),
   
   initialize : function() {
-    for( i = 0; i < 0x8; i++ ) { this.ppu_registers[i] = 0xFF}
+    for( i = 0; i < 0x8; i++ ) { this.ppu_registers[i] = 0xFF};
+    this.worker = new Worker('/js/worker.js');
   }
 };
