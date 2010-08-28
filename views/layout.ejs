@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="joy.css" type="text/css" />
-    <script type="text/javascript" src="jquery-1.4.2.js"></script>
-    <script type="text/javascript" src="dynamicaudio-min.js"></script>
-    <script type="text/javascript" src="jquery.dimensions.min.js"></script>
-    <script type="text/javascript" src="logger.js"></script>
-    <script type="text/javascript" src="jsnes.js"></script>
+    <link rel="stylesheet" href="/css/joy.css" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/js/joynes.js">
+    <script type="text/javascript" src="/js/tools.js">
     <script>
-      $(document).ready( function(){
+       $(document).ready( function(){
         nes1 = new JSNES({
           'ui': $("#emulator_1").JSNESUI({
             "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
