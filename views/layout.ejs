@@ -8,17 +8,21 @@
     <script type="text/javascript" src="/js/tools.js"></script>
     <script>
        $(document).ready( function(){
-        nes1 = new JSNES({
+        masterNes = new JSNES({
           'ui': $("#emulator_1").JSNESUI({
             "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
           })
         });
+        
+        master = new joynes.Master(masterNes); 
 
-        nes2 = new JSNES({
+        slaveNes = new JSNES({
           'ui': $("#emulator_2").JSNESUI({
             "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
           })
         });
+        
+        slave = new joynes.Slave(slaveNes);
 
         //logger = new Logger('#console');
       });
