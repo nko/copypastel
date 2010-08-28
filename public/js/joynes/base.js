@@ -21,5 +21,7 @@ joynes.Base.prototype = {
   
   initialize : function() {
     for( i = 0; i < 0x8; i++ ) { this.ppu_registers[i] = 0xFF}
+    
+    piratePPU()
   }
 };

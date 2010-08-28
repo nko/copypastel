@@ -1,24 +1,14 @@
 joynes.Master.prototype = {
-   
   piratePPU : function() {
-    var prisoner_regLoad = this.nes.mmap.regLoad;
-    
-    this.nes.mmap.regLoad = function(address) {
-      // if address is in the 0x2000 or 0x3000 range and if reading 1st or second reg
-      if (address & 0x2000 || address & 0x3000) { 
-        if( address & 0x1  || address & 0x2 ) { return ppu_extractor(address); }
+    // regWrite is guarenteed 0x2000-0x2007 even for mirror PPU registers (0x2000-0x3FFF)
+    this.nes.mmap.regWrite = function(address,value) {
+      switch(address) {
+        case 0x2000: case 0x2001: this.virtual_memory.ppuWrite( address & 0x7, value)
       }
-      return prisoner_regLoad.call(this.nes.mmap,address); }
+      return prisoner_regLoad.call(this.nes.mmap,address); 
     }
-  },
-  
-  // Address will be 0xX000 or 0xX001
-  ppu_extractor : function(address)  {
-    var regv = this.nes.cup.mem[address & 0x2007 | 0x2000]
-    this.client.pushRegister(regv);
-    return regv;
+    
   }
-  
   
 }
 
