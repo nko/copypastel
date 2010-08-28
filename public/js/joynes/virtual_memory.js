@@ -6,6 +6,7 @@ joynes.VirtualMemory.prototype = {
   fPPU  : 0,
   
   PPU_flags : 0,
+  
   last_sync : {},
   
   SET   : function(flags,flag) { 
@@ -29,20 +30,14 @@ joynes.VirtualMemory.prototype = {
       var sync_instructions = {}
       // Handle PPU changes (graphics)
       if( this.CHECK(this.Interrupts, this.fPPU) ) {
-        this.CLEAR(this.Interrupts, this.fPPU)
+        this.Interrupts = this.CLEAR(this.Interrupts, this.fPPU)
         // Loop through all PPU_flags and queue up any state changes
         sync_instructions['ppu'] = {}
         for(var reg = 0; reg < this.PPU_LENGTH; reg++) { 
-          if( this.CLEAR(this.PPU_flags, reg) ) { 
-            sync_instructions['ppu'][reg] = this.emulator.nes.mmap.regLoad(this.PPU_START & reg ) 
+          if( this.CHECK(this.PPU_flags,reg) ) {
+            this.PPU_flags = this.CLEAR(this.PPU_flags, reg); 
+            sync_instructions['ppu'][reg] = this.emulator.nes.mmap.regLoad(this.PPU_START | reg ) 
           }
-          var different = false
-          for(i in this.last_sync ) {
-            if( this.last_sync[i] != sync_instructions[i]) {
-              different = true;
-            }            
-          }
-          if(different) console.log(sync_instructions)
         }
       }
       
