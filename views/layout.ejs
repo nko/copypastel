@@ -2,6 +2,19 @@
 <html>
   <head>
     <link rel="stylesheet" href="joy.css" type="text/css" />
+    <script type="text/javascript" src="jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="dynamicaudio-min.js"></script>
+    <script type="text/javascript" src="jquery.dimensions.min.js"></script>
+    <script type="text/javascript" src="jsnes.js"></script>
+    <script>
+      $(document).ready( function(){
+        var nes = new JSNES({
+          'ui': $("#emulator").JSNESUI({
+            "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+          })
+        });
+      });
+    </script>
   </head>
   <body>
     <%- body %>
