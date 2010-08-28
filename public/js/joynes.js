@@ -81,38 +81,13 @@ joynes.Master.prototype = {
       return this.nes.cpu.mem[0x2000];
          
     case 0x1:
-        // 0x2001:
-        // PPU Control Register 2.
-        // (the value is stored both
-        // in main memory and in the
-        // PPU as flags):
-        // (not in the real NES)
-        return this.nes.cpu.mem[0x2001];
-         
-    case 0x2:
-        // 0x2002:
-        // PPU Status Register.
-        // The value is stored in
-        // main memory in addition
-        // to as flags in the PPU.
-        // (not in the real NES)
-        return this.nes.ppu.readStatusRegister();
-         
-    case 0x3:
-      return 0;
-         
-    case 0x4:
-      // 0x2004:
-      // Sprite Memory read.
-      return this.nes.ppu.sramLoad();
-    case 0x5:
-      return 0; 
-    case 0x6:
-      return 0; 
-    case 0x7:
-      // 0x2007:
-      // VRAM read:
-    return this.nes.ppu.vramLoad();
+      // 0x2001:
+      // PPU Control Register 2.
+      // (the value is stored both
+      // in main memory and in the
+      // PPU as flags):
+      // (not in the real NES)
+      return this.nes.cpu.mem[0x2001];
     }
   }
 }
