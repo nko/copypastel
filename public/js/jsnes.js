@@ -1,0 +1,1 @@
+../../lib/jsnes/build/jsnes-src.js
