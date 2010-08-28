@@ -3,20 +3,24 @@
   <head>
     <link rel="stylesheet" href="/css/joy.css" type="text/css" />
     <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="/js/socket.io.js"></script>
     <script type="text/javascript" src="/js/joynes.js"></script>
     <script type="text/javascript" src="/js/tools.js"></script>
 		<script>
 			// Socket init
-			io.setPath('/');
-			this.socket = new io.Socket(null, {port: 80});
-			socket.connect();
-						
-			socket1 = new io.Socket(null, {port: 80});
-			socket1.connect();
+			this.socket = new WebSocket("ws://"+document.location.host+":8080/");
+			socket.onmessage = function(evt){
+				console.log(evt.data);
+			}
 
-			socket2 = new io.Socket(null, {port: 80});
-			socket2.connect();
+			socket1 = new WebSocket("ws://"+document.location.host+":8080/");
+			socket1.onmessage = function(evt){
+				console.log(evt.data);
+			}
+
+			socket2 = new WebSocket("ws://"+document.location.host+":8080/");
+			socket2.onmessage = function(evt){
+				console.log(evt.data);
+			}
 						
 			$(document).ready( function(){
 				masterNes = new JSNES({
@@ -40,8 +44,8 @@
 			
 			// Socket.IO section
 			
-			socket.on('message', function(obj){
-				console.log(obj);
+			socket.onmessage( function(obj){
+				console.log(obj.data);
 			});
 			
 			// socket.send to send messages to server
