@@ -2,10 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="/css/joy.css" type="text/css" />
-    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script>    
     <script type="text/javascript" src="/js/joynes.js"></script>
-    <script type="text/javascript" src="/js/tools.js"></script>
 		<script>
+		
 			// Socket init
 			this.socket = new WebSocket("ws://"+document.location.host+":8080/");
 			socket.onmessage = function(evt){
@@ -45,7 +45,7 @@
 			// Socket.IO section
 			
 			socket.onmessage( function(obj){
-				console.log(obj.data);
+				//console.log(obj.data);
 			});
 			
 			// socket.send to send messages to server
