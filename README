@@ -1,0 +1,4 @@
+= NES Multiplayer
+
+You may have heard of JSNES, a NES emulator written in Javascript. It's great, but we can't get our two-player Bubble Bobble groove on over the web with it. Let's fix that.
+add multiplayer to it.
