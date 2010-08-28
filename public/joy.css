@@ -4,3 +4,12 @@
   background: url(logo.gif);
   margin: 0 auto;
 }
+
+#console{
+  margin: 0 auto;
+  width: 40%;
+  height: 200px;
+  border: 1px solid #111;
+  overflow: auto;
+  font-family: monospace;
+}
