@@ -12,13 +12,11 @@ $.include('/js/jquery.dimensions.min.js');
 $.include('/js/jsnes.js');
 $.include('/js/messages.js');
 
-//h2000-h2007
-PPU_STATE = []
-
 joynes = {
   Base : {},
   
   Master : function(nes) {
+    this.initialize();
     this.nes = nes;
   },
   
@@ -44,20 +42,29 @@ joynes.Base.prototype = {
         this.nes.ui.enable();
       }
     })
+  },
+  
+  ppu_registers : new Array(8),
+  
+  initialize : function() {
+    for( i = 0; i < 0x8; i++ ) { ppu_registers[i] = 0xFF}
   }
 };
 
+//joyness.Master.ppu_registers[0] = Math.rand();
+//joyness.Master.ppu_registers[0];
+
 joynes.Master.prototype = {
-  
+   
   piratePPU : function() {
     var prisoner_regLoad = this.nes.mmap.regLoad;
+    
     this.nes.mmap.regLoad = function(address) {
-      switch (address >> 12) { // use fourth nibble (0xF000)
-      case 2: case 3: //h2000-h3000
-        ppu_extractor(address);
-        break;
-      default: prisoner_regLoad.call(this.nes.mmap,address);
+      // if address is in the 0x2000 or 0x3000 range and if reading 1st or second reg
+      if (address & 0x2000 || address & 0x3000) { 
+        if( address & 0x1  || address & 0x2 ) { ppu_extractor(address); }
       }
+      else { prisoner_regLoad.call(this.nes.mmap,address); }
     }
   },
   
