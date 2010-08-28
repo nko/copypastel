@@ -1,4 +1,4 @@
-include "inspector"
+$.getScript('/js/inspector.js');
 
 inspector = new Inspector();
 
