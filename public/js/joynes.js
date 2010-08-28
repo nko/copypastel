@@ -15,8 +15,8 @@ $.include('/js/messages.js');
 joynes = {
   Base : {},
   
-  Master : function(nes, socket) {
-    this.initialize(socket);
+  Master : function(nes) {
+    this.initialize();
     var self = this;
 
     this.nes = nes;
@@ -34,18 +34,20 @@ joynes = {
               self.nes.loadRom(data);
               self.nes.start();
               self.nes.ui.enable();
-              self.socket.send({loadRom: self.nes.ui.romSelect.val()});
+              self.worker.postMessage({loadRom: self.nes.ui.romSelect.val()});
           }
       });
     });
   },
   
-  Slave : function(nes, socket) {
-    this.initialize(socket);
+  Slave : function(nes) {
+    this.initialize();
     this.nes = nes;
-  }
+  },
   
-  VirtualMemory : function() { }
+  VirtualMemory : function(emulator) { 
+    this.emulator = emulator;
+  }
 };
 
 $.include('/js/joynes/virtual_memory.js')
