@@ -5,6 +5,17 @@
   margin: 0 auto;
 }
 
+#emulators{
+  margin: 0 auto;
+  width: 570px;
+}
+
+.emulator{
+  display: inline;
+  margin-right: 20px;
+  float: left;
+}
+
 #console{
   margin: 0 auto;
   width: 40%;
