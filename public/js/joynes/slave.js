@@ -1,6 +1,6 @@
 
 joynes.Slave.prototype = {
-  piratePPU : function() { }; // Do nothing on the slave
+  piratePPURegisters : function() { alert('Slaves can not pirate the PPU')}; // Do nothing on the slave
   
   
   

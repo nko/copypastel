@@ -44,8 +44,11 @@ joynes = {
     this.initialize(socket);
     this.nes = nes;
   }
+  
+  VirtualMemory : function() { }
 };
 
-$.include('js/joynes/base.js')
+$.include('/js/joynes/virtual_memory.js')
+$.include('/js/joynes/base.js')
 $.include('/js/joynes/master.js')
 $.include('/js/joynes/slave.js')
