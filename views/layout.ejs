@@ -9,8 +9,14 @@
     <script type="text/javascript" src="jsnes.js"></script>
     <script>
       $(document).ready( function(){
-        nes = new JSNES({
-          'ui': $("#emulator").JSNESUI({
+        nes1 = new JSNES({
+          'ui': $("#emulator_1").JSNESUI({
+            "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
+          })
+        });
+
+        nes2 = new JSNES({
+          'ui': $("#emulator_2").JSNESUI({
             "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
           })
         });
