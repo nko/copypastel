@@ -34,7 +34,7 @@ joynes = {
               self.nes.loadRom(data);
               self.nes.start();
               self.nes.ui.enable();
-              socket.send({loadRom: self.nes.ui.romSelect.val()});
+              self.socket.send({loadRom: self.nes.ui.romSelect.val()});
           }
       });
     });
