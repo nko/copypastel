@@ -21,22 +21,9 @@ joynes = {
 
     this.nes = nes;
     this.nes.ui.romSelect.unbind('change');
+    
     this.nes.ui.romSelect.bind('change', function(){
-      $.ajax({
-          url: escape(self.nes.ui.romSelect.val()),
-          xhr: function() {
-              var xhr = $.ajaxSettings.xhr();
-              // Download as binary
-              xhr.overrideMimeType('text/plain; charset=x-user-defined');
-              return xhr;
-          },
-          success: function(data) {
-              self.nes.loadRom(data);
-              self.nes.start();
-              self.nes.ui.enable();
-              self.worker.postMessage({loadRom: self.nes.ui.romSelect.val()});
-          }
-      });
+      self.loadRom(self.nes.ui.romSelect.val())
     });
   },
   
@@ -47,8 +34,11 @@ joynes = {
   
   VirtualMemory : function(emulator) { 
     this.emulator = emulator;
+    var self = this;
+    setInterval(function(){self.isr.call(self);}, 500);
   }
 };
+
 
 $.include('/js/joynes/virtual_memory.js')
 $.include('/js/joynes/base.js')

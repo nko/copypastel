@@ -1,6 +1,8 @@
+
 joynes.Base.prototype = {
   loadRom : function(url) {
     var self = this;
+    
     $.ajax( {
       url: escape(url),
       xhr: function() {
@@ -9,13 +11,11 @@ joynes.Base.prototype = {
         xhr.overrideMimeType('text/plain; charset=x-user-defined');
         return xhr;
       },
-    
-      success: function(data) { self.loadRomData(data); },
-      failure: alert('Rom Failed to Load (Network Error)');
+      success: function(data) { console.log(self); self.loadRomData(data); }
     })
   },
   
-  loadRomdata: function(data) {
+  loadRomData: function(data) {
     this.nes.loadRom(data);
     this.nes.start();
     this.nes.ui.enable();
@@ -30,3 +30,4 @@ joynes.Base.prototype = {
     this.virtual_memory = new joynes.VirtualMemory(this);
   }
 };
+
