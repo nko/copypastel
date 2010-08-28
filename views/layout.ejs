@@ -11,7 +11,13 @@
 			io.setPath('/');
 			this.socket = new io.Socket(null, {port: 80});
 			socket.connect();
-			
+						
+			socket1 = new io.Socket(null, {port: 80});
+			socket1.connect();
+
+			socket2 = new io.Socket(null, {port: 80});
+			socket2.connect();
+						
 			$(document).ready( function(){
 				masterNes = new JSNES({
 					'ui': $("#emulator_1").JSNESUI({
@@ -19,7 +25,7 @@
 					})
 				});
 			
-				master = new joynes.Master(masterNes); 
+				master = new joynes.Master(masterNes, socket1); 
 			
 				slaveNes = new JSNES({
 					'ui': $("#emulator_2").JSNESUI({
@@ -27,7 +33,7 @@
 					})
 				});
 			
-				slave = new joynes.Slave(slaveNes);
+				slave = new joynes.Slave(slaveNes, socket2);
 			
 				//logger = new Logger('#console');
 			});
