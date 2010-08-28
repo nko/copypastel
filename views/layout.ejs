@@ -5,14 +5,17 @@
     <script type="text/javascript" src="jquery-1.4.2.js"></script>
     <script type="text/javascript" src="dynamicaudio-min.js"></script>
     <script type="text/javascript" src="jquery.dimensions.min.js"></script>
+    <script type="text/javascript" src="logger.js"></script>
     <script type="text/javascript" src="jsnes.js"></script>
     <script>
       $(document).ready( function(){
-        var nes = new JSNES({
+        nes = new JSNES({
           'ui': $("#emulator").JSNESUI({
             "Homebrew": [["Concentration Room", "/roms/croom.nes"]]
           })
         });
+
+        logger = new Logger('#console');
       });
     </script>
   </head>
