@@ -14,7 +14,9 @@ joynes = {
     });
     
     this.socket.onmessage = function(evt){
-      // handle keypresses
+      console.log(evt.data);
+      var data = JSON.parse(evt.data);
+      self.nes.keyboard.setKey(data.key, data.value);
     }
   },
   
@@ -22,6 +24,17 @@ joynes = {
     this.initialize();
     var self = this;
     this.canvas = $('<canvas class="nes-screen" width="256" height="240">').appendTo('#emulator_2')[0];
+
+    $(document).
+    bind('keydown', function(evt) {
+      self.sendKey(evt.keyCode, 0x41);
+    }).
+    bind('keyup', function(evt) {
+      self.sendKey(evt.keyCode, 0x40);
+    }).
+    bind('keypress', function(evt) {
+        evt.preventDefault()
+    });
 
     this.socket.onmessage = function(evt){
       self.drawCanvas(evt.data);

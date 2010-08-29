@@ -17,23 +17,32 @@ var socket = ws.createServer();
 
 app.configure( function(){
   app.use(express.staticProvider(__dirname + '/public'));
-    });
+});
 
 app.get('/', function(req, res){
-    res.render('index.ejs');
-    });
+  res.render('index.ejs');
+});
+
+app.get('/master', function(req, res){
+  res.render('master.ejs');
+});
+
+app.get('/slave', function(req, res){
+  res.render('slave.ejs');
+});
 
 // Socket
 
 socket.addListener("connection", function(conn){
+  sys.puts("Opening: " + conn.id);
   conn.addListener("message", function(message){
-    //sys.puts(message);
+    if(!message.match(/png/)){};
     conn.broadcast(message);
   });
 });
 
-socket.addListener("close", function(message){
-  sys.puts("Closing: " + message);
+socket.addListener("close", function(conn){
+  sys.puts("Closing: " + conn.id);
 });
 
 socket.listen(8080);

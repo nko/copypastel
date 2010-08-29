@@ -11,3 +11,10 @@ inspector.filter = functio(args) {
   return true;
 }
 */
+
+
+orig = self.rom.change
+
+self.rom.change = function(ignore) {
+  oig(my)
+}

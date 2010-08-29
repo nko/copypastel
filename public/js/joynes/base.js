@@ -10,7 +10,7 @@ joynes.Base.prototype = {
         xhr.overrideMimeType('text/plain; charset=x-user-defined');
         return xhr;
       },
-      success: function(data) { console.log(self); self.loadRomData(data); }
+      success: function(data) { self.loadRomData(data); }
     })
   },
   

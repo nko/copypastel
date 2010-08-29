@@ -11,25 +11,15 @@
     <script type="text/javascript" src="/js/joynes/base.js"></script>
     <script type="text/javascript" src="/js/joynes/master.js"></script>
     <script type="text/javascript" src="/js/joynes/slave.js"></script>
-		<script>
-			$(document).ready( function(){
-				masterNes = new JSNES({
-					'ui': $("#emulator_1").JSNESUI({
-						"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-					})
-				});
-			
-				master = new joynes.Master(masterNes); 
-				slave = new joynes.Slave();
-			
-				//logger = new Logger('#console');
-			});
-			
-			// socket.send to send messages to server
-		</script>
   </head>
   <body>
     <%- body %>
+		<div id="logo"></div>
+		<div id="emulators">
+		  <div id="emulator_1" class="emulator" style="float: left;"></div>
+		  <div id="emulator_2" class="emulator" style="float: right;"></div>
+		</div>
+		<div id="console"></div>
   </body>
 </html>
 
