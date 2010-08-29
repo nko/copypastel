@@ -241,9 +241,9 @@ JSNES.prototype = {
     },
     
     setFramerate: function(rate){
-        this.nes.opts.preferredFrameRate = rate;
-        this.nes.frameTime = 1000 / rate;
-        this.papu.setSampleRate(this.opts.sampleRate, false);
+        this.opts.preferredFrameRate = rate;
+        this.frameTime = 1000 / rate;
+        //this.papu.setSampleRate(this.opts.sampleRate, false);
     },
     
     setLimitFrames: function(limit) {

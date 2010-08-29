@@ -6,6 +6,8 @@ joynes = {
     var self = this;
 
     this.nes = nes;
+    this.frameRate = null;
+    this.lastSendTime = null;
     this.nes.ui.romSelect.unbind('change');
     
     this.nes.ui.romSelect.bind('change', function(){
@@ -16,7 +18,14 @@ joynes = {
     this.socket.onmessage = function(evt){
       var data = JSON.parse(evt.data);
       if(data.key){ self.nes.keyboard.setKey(data.key, data.value) };
-      if(data.ok){ self.sendImageData() };
+      if(data.ok){ 
+        if(!self.lastSendTime){ self.lastSendTime = Date.now() }
+        else{ 
+          var frameRate = (Date.now() - self.lastSendTime) * 1000;
+          self.setFrameRate(frameRate);
+        }
+        self.sendImageData();
+      };
     }
   },
   
