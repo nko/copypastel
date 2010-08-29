@@ -1,13 +1,13 @@
-var socket = new WebSocket('ws://localhost:8080/'); 
+var server = new WebSocket('ws://localhost:8080/'); 
 
-socket.onopen = function(event){
-  socket.send("Hello, WebSocket");
+server.onopen = function(event){
+  server.send("Hello, WebSocket");
 }
-socket.onmessage = function(event) { /*alert(event.data)*/; }
-socket.onclose = function(event) { /*alert("closed");*/ }
+
+server.onmessage = function(event) { postMessage(event.data);  }
+server.onclose = function(event) { /*alert("closed");*/ }
+
 
 onmessage = function(event){
-  var msg = event.data;
-
-  socket.send(msg);
-};
+  server.send(event.data);
+}

@@ -7,13 +7,13 @@
 
 #emulators{
   margin: 0 auto;
-  width: 570px;
+  width: 650px;
 }
 
 .emulator{
   display: inline;
-  margin-right: 20px;
-  float: left;
+  margin: 10px;
+  padding: 10px;
 }
 
 #console{
@@ -23,4 +23,5 @@
   border: 1px solid #111;
   overflow: auto;
   font-family: monospace;
+  display: none;
 }
