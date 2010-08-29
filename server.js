@@ -31,19 +31,60 @@ app.get('/slave', function(req, res){
   res.render('slave.ejs');
 });
 
-// Socket
+var channels = {};
+var mastersWaiting = [];
+var slavesWaiting = [];
 
 socket.addListener("connection", function(conn){
   sys.puts("Opening: " + conn.id);
   conn.addListener("message", function(message){
-    if(!message.match(/png/)){ sys.puts("Got " + message + " from " + conn.id) };
-    conn.broadcast(message);
+    if(message[0] == "m"){
+      // Master
+      sys.puts("Master " + conn.id + " connected.")
+      if( slavesWaiting.length == 0){
+        mastersWaiting.push(conn.id);
+      }else{
+        // Have a pair.
+        var slave = slavesWaiting.shift();
+        var master = conn.id
+        channels[master] = slave;
+        channels[slave] = master;
+      };
+    }
+    else if(message[0] == "s"){
+      // Slave
+      sys.puts("Slave " + conn.id + " connected.")
+      if( mastersWaiting.length == 0){
+        slavesWaiting.push(conn.id);
+      }else{
+        // Have a pair.
+        var master = mastersWaiting.shift();
+        var slave = conn.id;
+        sys.puts("Matching slave " + conn.id + " with master " + master);
+        channels[master] = slave;
+        channels[slave] = master;
+      }
+    }else{
+      // Try to send message
+      if(channels[conn.id] != undefined){
+        sys.puts("Sending " + message + " from " + conn.id + " to " + channels[conn.id]);
+        socket.send(channels[conn.id], message);
+      }
+    }
   });
 });
 
 socket.addListener("close", function(conn){
   sys.puts("Closing: " + conn.id);
-  conn.broadcast(JSON.stringify({close: 1}));
+  if( channels[conn.id] != undefined ){
+    var partner = channels[conn.id];
+    socket.send(partner, JSON.stringify({close: conn.id}));
+    channels[conn.id] = undefined;
+    channels[partner] = undefined;
+    // need to put partner in waiting list.
+  }else{
+    // was in a waiting list.
+  }
 });
 
 socket.listen(8080);

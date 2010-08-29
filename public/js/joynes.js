@@ -2,8 +2,13 @@ joynes = {
   Base : {},
   
   Master : function(nes) {
-    this.initialize();
     var self = this;
+    
+    this.initialize();
+    this.socket = new WebSocket('ws://' + document.location.hostname + ':8080/');
+    this.socket.onopen = function(evt){
+      self.socket.send('m');
+    }
 
     this.nes = nes;
     this.frameRate = null;
@@ -39,8 +44,19 @@ joynes = {
   },
   
   Slave : function() {
-    this.initialize();
     var self = this;
+
+    this.initialize();
+    this.socket.onopen = function(evt){
+      self.socket.send('s');
+      self.socket.send(JSON.stringify({ok: 1})); 
+    }
+    this.socket.onmessage = function(evt){
+      self.drawCanvas(evt.data);
+      self.socket.send(JSON.stringify({ok: 1}));
+    };
+    
+
     this.canvas = $('<canvas class="nes-screen" width="256" height="240">').appendTo('#emulator_2')[0];
 
     $(document).
@@ -53,14 +69,5 @@ joynes = {
     bind('keypress', function(evt) {
         evt.preventDefault()
     });
-
-    this.socket.onmessage = function(evt){
-      self.drawCanvas(evt.data);
-      self.socket.send(JSON.stringify({ok: 1}));
-    };
-    
-    this.socket.onopen = function(evt){
-      self.socket.send(JSON.stringify({ok: 1})); 
-    }
   }
 };
