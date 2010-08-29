@@ -17,14 +17,17 @@ joynes = {
     
     this.socket.onmessage = function(evt){
       var data = JSON.parse(evt.data);
+      var now = Date.now();
       if(data.key){ self.nes.keyboard.setKey(data.key, data.value) };
       if(data.ok){ 
         if(!self.lastSendTime){ self.lastSendTime = Date.now() }
         else{ 
-          var frameRate = (Date.now() - self.lastSendTime) * 1000;
+          var frameRate = 1/(now - self.lastSendTime) * 1000;
+          console.log("Framerate changed to: " + frameRate);
           self.setFrameRate(frameRate);
         }
         self.sendImageData();
+        self.lastSendTime = now;
       };
     }
   },
