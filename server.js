@@ -43,6 +43,7 @@ socket.addListener("connection", function(conn){
 
 socket.addListener("close", function(conn){
   sys.puts("Closing: " + conn.id);
+  conn.broadcast(JSON.stringify({close: 1}));
 });
 
 socket.listen(8080);

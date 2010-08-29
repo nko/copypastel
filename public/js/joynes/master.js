@@ -1,4 +1,6 @@
 joynes.Master.prototype = {
+  // Should send something like "you already have latest"
+  // if nes isn't running.
   sendImageData: function(){
     var data = this.nes.ui.screen[0].toDataURL();
     this.socket.send(data);

@@ -21,14 +21,20 @@ joynes = {
       if(data.key){ self.nes.keyboard.setKey(data.key, data.value) };
       if(data.ok){ 
         if(!self.lastSendTime){ self.lastSendTime = Date.now() }
-        else if(self.nes.isRunning){ 
+        else{ 
           var frameRate = 1/(now - self.lastSendTime) * 1000;
-          console.log("Framerate changed to: " + frameRate);
-          self.setFrameRate(frameRate);
+          console.log(frameRate);
+          if(frameRate < 15){ frameRate = 15 }
+          else if(frameRate > 60){ frameRate = 60 };
+          // Set to frameRate + 1 so we can increase until reaching limit.
+          self.setFrameRate(frameRate + 1);
         }
         self.sendImageData();
         self.lastSendTime = now;
       };
+      if(data.close){
+        self.setFrameRate(60);
+      }
     }
   },
   
