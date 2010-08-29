@@ -15,7 +15,8 @@ joynes.Master.prototype = {
     } 
   },
   sendImageData: function(){
-    socket.send(this.nes.ui.canvasImageData);
+    var data = this.nes.ui.screen[0].toDataURL();
+    this.socket.send(data);
   }
 }
 

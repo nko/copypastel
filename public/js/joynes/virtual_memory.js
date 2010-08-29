@@ -25,7 +25,7 @@ joynes.VirtualMemory.prototype = {
     instruct['ppu'][reg] = this.emulator.nes.mmap.regLoad(this.PPU_START | reg)
     
     ;
-    this.emulator.socket.postMessage( JSON.stringify( [1,instruct] ) );
+    //this.emulator.socket.postMessage( JSON.stringify( [1,instruct] ) );
     //this.Interrupts = this.SET(this.Interrupts, this.fPPU);
     //this.PPU_flags  = this.SET(this.PPU_flags, reg);
   },

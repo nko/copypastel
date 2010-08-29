@@ -27,7 +27,7 @@ joynes = {
     this.nes.ui.romSelect.bind('change', function(){
       self.loadRom(self.nes.ui.romSelect.val())
       //self.socket.postMessage("[0,'" + self.nes.ui.romSelect.val() + "']");
-      setInterval( this.sendImageData, 500);
+      setInterval( function(){self.sendImageData.call(self)}, 150);
     });
   },
   
@@ -38,23 +38,7 @@ joynes = {
     this.nes = nes;
 
     this.socket.onmessage = function(evt){
-      console.log(evt.data)
-      var data = JSON.parse(evt.data);
-      switch(data[0]){
-        case 0:
-          self.loadRom(data[1]);
-          break;
-        case 1:
-          for( var key in data[1]['ppu'] ) {
-            self.prisoner_regWrite.call(self.nes.mmap,0x2000 | parseInt(key), data[1]['ppu'][key])
-          }
-          break;
-        case 6:
-          //alert(data[1]);
-          break;
-        default:
-          console.log("Slave doesn't know what to do with ", evt.data, typeof(evt.data));
-      };
+      self.drawCanvas(evt.data);
     };
   },
   

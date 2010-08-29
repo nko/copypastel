@@ -12,7 +12,16 @@ joynes.Slave.prototype = {
       return this.prisoner_regWrite.call(self.nes.mmap, address, value); 
     }
   },
-  
+  drawCanvas: function(data){
+    var canvas = this.nes.ui.screen[0];
+    var img = new Image();
+    img.onload = function(){
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.getContext("2d").drawImage(img, 0, 0);
+    }
+    img.src = data;
+  },
   prisoner_regWrite : null
   
   
