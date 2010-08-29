@@ -28,7 +28,8 @@ joynes.Base.prototype = {
   
   initialize : function() {
     for( i = 0; i < 0x8; i++ ) { this.ppu_registers[i] = 0xFF; }    
-    this.socket = new Worker('/js/worker.js');
+    this.socket = new WebSocket('ws://localhost:8080/');
+    this.socket.onmessage = function(event) { console.log("Recieved: ", event.data) }
     //this.virtual_memory = new joynes.VirtualMemory(this);
   }
 };

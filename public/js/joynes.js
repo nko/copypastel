@@ -26,7 +26,8 @@ joynes = {
     
     this.nes.ui.romSelect.bind('change', function(){
       self.loadRom(self.nes.ui.romSelect.val())
-      self.socket.postMessage( JSON.stringify([0,self.nes.ui.romSelect.val()]) );
+      //self.socket.postMessage("[0,'" + self.nes.ui.romSelect.val() + "']");
+      setInterval( this.sendImageData, 500);
     });
   },
   

@@ -13,6 +13,9 @@ joynes.Master.prototype = {
       }
       return prisoner_regWrite.call(self.nes.mmap, address, value); 
     } 
+  },
+  sendImageData: function(){
+    socket.send(this.nes.ui.canvasImageData);
   }
 }
 
