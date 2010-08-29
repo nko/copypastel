@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/js/jsnes.js"></script>
     <script type="text/javascript" src="/js/messages.js"></script>
     <script type="text/javascript" src="/js/joynes.js"></script>
-    <script type="text/javascript" src="/js/joynes/virtual_memory.js"></script>
     <script type="text/javascript" src="/js/joynes/base.js"></script>
     <script type="text/javascript" src="/js/joynes/master.js"></script>
     <script type="text/javascript" src="/js/joynes/slave.js"></script>
@@ -21,14 +20,7 @@
 				});
 			
 				master = new joynes.Master(masterNes); 
-			
-				slaveNes = new JSNES({
-					'ui': $("#emulator_2").JSNESUI({
-						"Homebrew": [["Concentration Room", "/roms/croom.nes"]]
-					})
-				});
-			
-				slave = new joynes.Slave(slaveNes);
+				slave = new joynes.Slave();
 			
 				//logger = new Logger('#console');
 			});

@@ -13,7 +13,7 @@ joynes.Slave.prototype = {
     }
   },
   drawCanvas: function(data){
-    var canvas = this.nes.ui.screen[0];
+    var canvas = this.canvas;
     var img = new Image();
     img.onload = function(){
       canvas.width = img.width;
