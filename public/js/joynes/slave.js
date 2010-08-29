@@ -1,7 +1,19 @@
 
 joynes.Slave.prototype = {
-  piratePPURegisters : function() { alert('Slaves can not pirate the PPU') } // Do nothing on the slave
+  piratePPURegisters : function() {
+    // regWrite is aborted 0x2000-0x2007 even for mirror PPU registers (0x2000-0x3FFF)
+    //In the master registry changes are still persistant
+    this.prisoner_regWrite = this.nes.mmap.regWrite;
+    var self = this;
+    this.nes.mmap.regWrite = function(address,value) {
+      switch(address) {
+        case 0x2000: case 0x2001: return;
+      }
+      return this.prisoner_regWrite.call(self.nes.mmap, address, value); 
+    }
+  },
   
+  prisoner_regWrite : null
   
   
   //   var prisoner_regLoad = this.nes.mmap.regLoad;

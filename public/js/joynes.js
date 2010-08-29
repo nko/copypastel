@@ -7,10 +7,12 @@ $.include = function(url){
   })
 }
 
+/*
 $.include('/js/dynamicaudio-min.js');
 $.include('/js/jquery.dimensions.min.js');
 $.include('/js/jsnes.js');
 $.include('/js/messages.js');
+*/
 
 joynes = {
   Base : {},
@@ -24,21 +26,27 @@ joynes = {
     
     this.nes.ui.romSelect.bind('change', function(){
       self.loadRom(self.nes.ui.romSelect.val())
-      self.socket.postMessage("[0,'" + self.nes.ui.romSelect.val() + "']");
+      self.socket.postMessage( JSON.stringify([0,self.nes.ui.romSelect.val()]) );
     });
   },
   
   Slave : function(nes) {
+    this.initialize();
     var self = this;
     
-    this.initialize();
     this.nes = nes;
+
     this.socket.onmessage = function(evt){
-      var data = eval(evt.data);
+      console.log(evt.data)
+      var data = JSON.parse(evt.data);
       switch(data[0]){
         case 0:
-          console.log(data);
           self.loadRom(data[1]);
+          break;
+        case 1:
+          for( var key in data[1]['ppu'] ) {
+            self.prisoner_regWrite.call(self.nes.mmap,0x2000 | parseInt(key), data[1]['ppu'][key])
+          }
           break;
         case 6:
           //alert(data[1]);
@@ -52,12 +60,13 @@ joynes = {
   VirtualMemory : function(emulator) { 
     this.emulator = emulator;
     var self = this;
-    setInterval(function(){self.isr.call(self);}, 500);
+    //setInterval(function(){self.isr.call(self);}, 10);
   }
 };
 
-
+/*
 $.include('/js/joynes/virtual_memory.js')
 $.include('/js/joynes/base.js')
 $.include('/js/joynes/master.js')
 $.include('/js/joynes/slave.js')
+*/

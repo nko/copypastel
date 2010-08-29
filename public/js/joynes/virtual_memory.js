@@ -20,8 +20,14 @@ joynes.VirtualMemory.prototype = {
   },
   // Reg should be values 0 - 7 for the 8 PPU registers
   ppuRegChange : function(reg) {
-    this.Interrupts = this.SET(this.Interrupts, this.fPPU);
-    this.PPU_flags  = this.SET(this.PPU_flags, reg);
+    instruct =  {}
+    instruct['ppu'] = {}
+    instruct['ppu'][reg] = this.emulator.nes.mmap.regLoad(this.PPU_START | reg)
+    
+    ;
+    this.emulator.socket.postMessage( JSON.stringify( [1,instruct] ) );
+    //this.Interrupts = this.SET(this.Interrupts, this.fPPU);
+    //this.PPU_flags  = this.SET(this.PPU_flags, reg);
   },
   
   
@@ -40,9 +46,10 @@ joynes.VirtualMemory.prototype = {
           }
         }
       }
-      
+      //console.log( JSON.stringify(sync_instructions));
+      this.emulator.socket.postMessage( JSON.stringify( [1, sync_instructions]) );
       // All synced changes handled
-      this.emulator.socket.postMessage(sync_instructions);
+      //this.emulator.socket.postMessage(sync_instructions);
     }
   }
 }
