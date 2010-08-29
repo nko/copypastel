@@ -9,14 +9,14 @@ joynes = {
     this.nes.ui.romSelect.unbind('change');
     
     this.nes.ui.romSelect.bind('change', function(){
-      self.loadRom(self.nes.ui.romSelect.val())
-      setInterval( function(){self.sendImageData.call(self)}, 150);
+      self.loadRom(self.nes.ui.romSelect.val());
+      self.sendImageData();
     });
     
     this.socket.onmessage = function(evt){
-      console.log(evt.data);
       var data = JSON.parse(evt.data);
-      self.nes.keyboard.setKey(data.key, data.value);
+      if(data.key){ self.nes.keyboard.setKey(data.key, data.value) };
+      if(data.ok){ self.sendImageData() };
     }
   },
   
@@ -38,6 +38,11 @@ joynes = {
 
     this.socket.onmessage = function(evt){
       self.drawCanvas(evt.data);
+      self.socket.send(JSON.stringify({ok: 1}));
     };
+    
+    this.socket.onopen = function(evt){
+      self.socket.send(JSON.stringify({ok: 1})); 
+    }
   }
 };

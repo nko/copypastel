@@ -36,7 +36,7 @@ app.get('/slave', function(req, res){
 socket.addListener("connection", function(conn){
   sys.puts("Opening: " + conn.id);
   conn.addListener("message", function(message){
-    if(!message.match(/png/)){};
+    if(!message.match(/png/)){ sys.puts("Got " + message + " from " + conn.id) };
     conn.broadcast(message);
   });
 });
