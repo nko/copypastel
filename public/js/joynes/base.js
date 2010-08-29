@@ -19,7 +19,9 @@ joynes.Base.prototype = {
     this.nes.loadRom(data);
     this.nes.start();
     this.nes.ui.enable();
+    this.virtual_memory = new joynes.VirtualMemory(this);
     this.piratePPURegisters();
+   
   },
   
   ppu_registers : new Array(8),
@@ -27,7 +29,7 @@ joynes.Base.prototype = {
   initialize : function() {
     for( i = 0; i < 0x8; i++ ) { this.ppu_registers[i] = 0xFF; }    
     this.socket = new Worker('/js/worker.js');
-    this.virtual_memory = new joynes.VirtualMemory(this);
+    //this.virtual_memory = new joynes.VirtualMemory(this);
   }
 };
 

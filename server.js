@@ -32,5 +32,9 @@ socket.addListener("connection", function(conn){
   });
 });
 
+socket.addListener("close", function(message){
+  sys.puts("Closing: " + message);
+});
+
 socket.listen(8080);
 app.listen(80);
