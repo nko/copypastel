@@ -5,23 +5,6 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script>    
     <script type="text/javascript" src="/js/joynes.js"></script>
 		<script>
-		
-			// Socket init
-			this.socket = new WebSocket("ws://"+document.location.host+":8080/");
-			socket.onmessage = function(evt){
-				console.log(evt.data);
-			}
-
-			socket1 = new WebSocket("ws://"+document.location.host+":8080/");
-			socket1.onmessage = function(evt){
-				console.log(evt.data);
-			}
-
-			socket2 = new WebSocket("ws://"+document.location.host+":8080/");
-			socket2.onmessage = function(evt){
-				console.log(evt.data);
-			}
-						
 			$(document).ready( function(){
 				masterNes = new JSNES({
 					'ui': $("#emulator_1").JSNESUI({
@@ -29,7 +12,7 @@
 					})
 				});
 			
-				master = new joynes.Master(masterNes, socket1); 
+				master = new joynes.Master(masterNes); 
 			
 				slaveNes = new JSNES({
 					'ui': $("#emulator_2").JSNESUI({
@@ -37,15 +20,9 @@
 					})
 				});
 			
-				slave = new joynes.Slave(slaveNes, socket2);
+				slave = new joynes.Slave(slaveNes);
 			
 				//logger = new Logger('#console');
-			});
-			
-			// Socket.IO section
-			
-			socket.onmessage( function(obj){
-				//console.log(obj.data);
 			});
 			
 			// socket.send to send messages to server

@@ -28,6 +28,7 @@ app.get('/', function(req, res){
 socket.addListener("connection", function(conn){
   conn.addListener("message", function(message){
     sys.puts(message);
+    conn.broadcast(message);
   });
 });
 
