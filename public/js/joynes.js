@@ -24,12 +24,29 @@ joynes = {
     
     this.nes.ui.romSelect.bind('change', function(){
       self.loadRom(self.nes.ui.romSelect.val())
+      self.socket.postMessage("[0,'" + self.nes.ui.romSelect.val() + "']");
     });
   },
   
   Slave : function(nes) {
+    var self = this;
+    
     this.initialize();
     this.nes = nes;
+    this.socket.onmessage = function(evt){
+      var data = eval(evt.data);
+      switch(data[0]){
+        case 0:
+          console.log(data);
+          self.loadRom(data[1]);
+          break;
+        case 6:
+          //alert(data[1]);
+          break;
+        default:
+          console.log("Slave doesn't know what to do with ", evt.data, typeof(evt.data));
+      };
+    };
   },
   
   VirtualMemory : function(emulator) { 
