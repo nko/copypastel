@@ -35,12 +35,9 @@ a:visited{
 #emulator{
   width: 256px;
   height: 240px;
-  background: black;
-  background: none;
   position: relative;
   top: 27px;
   left: 87px;
-  background: whitesmoke;
 }
 
 #brief{
@@ -109,5 +106,3 @@ a:visited{
   font-family: monospace;
   display: none;
 }
-
-
