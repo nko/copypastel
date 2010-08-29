@@ -21,7 +21,7 @@ joynes = {
       if(data.key){ self.nes.keyboard.setKey(data.key, data.value) };
       if(data.ok){ 
         if(!self.lastSendTime){ self.lastSendTime = Date.now() }
-        else{ 
+        else if(self.nes.isRunning){ 
           var frameRate = 1/(now - self.lastSendTime) * 1000;
           console.log("Framerate changed to: " + frameRate);
           self.setFrameRate(frameRate);
