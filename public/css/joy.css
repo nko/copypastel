@@ -70,12 +70,24 @@ a:visited{
 }
 
 #tv{
-  width: 500px;
-  height: 332px;
-  background: url(/img/tv.jpg);
-  position: fixed;
+  width: 690px;
+  height: 461px;
+  background: url(/img/static.gif);
   top: 20px;
-  left: 200px;
+  z-index: 3;
+  margin: 0 auto;
+}
+
+#tv img{
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#emulator{
+  position: relative;
+  top: -374px;
+  left: 162px;
 }
 
 #emulators{
