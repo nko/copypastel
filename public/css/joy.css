@@ -1,7 +1,7 @@
 @font-face { font-family: Pretendo; src: url('Pretendo.ttf'); } 
 
 body{
-  min-width: 800px;
+  min-width: 690px;
   color: #111;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -28,8 +28,8 @@ a:visited{
   height: 59px;
   background: url(/img/cpl.png);
   position: fixed;
-  top: 20px;
-  left: 100px;
+  bottom: 10px;
+  left: 10px;
 }
 
 #emulator{
@@ -107,6 +107,7 @@ a:visited{
   background: whitesmoke url(/img/logo_joyent.png);
   position: fixed;
   bottom: 0;
+  right: 0;
 }
 
 #console{
