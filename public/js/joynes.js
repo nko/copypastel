@@ -7,7 +7,7 @@ joynes = {
     this.initialize();
     this.socket = new WebSocket('ws://' + document.location.hostname + ':8080/');
     this.socket.onopen = function(evt){
-      self.socket.send('m');
+      this.socket.send(0);
     }
 
     this.nes = nes;
@@ -28,7 +28,6 @@ joynes = {
         if(!self.lastSendTime){ self.lastSendTime = Date.now() }
         else{ 
           var frameRate = 1/(now - self.lastSendTime) * 1000;
-          console.log(frameRate);
           if(frameRate < 15){ frameRate = 15 }
           else if(frameRate > 60){ frameRate = 60 };
           // Set to frameRate + 1 so we can increase until reaching limit.
@@ -37,7 +36,12 @@ joynes = {
         self.sendImageData();
         self.lastSendTime = now;
       };
+      if(data.id){ 
+        // Update the interface to let the user know their own id
+        document.getElementById('tag').innerHTML = data.id; 
+      }
       if(data.close){
+        // We're back to playing alone, so pump that framerate!
         self.setFrameRate(60);
       }
     }
@@ -48,8 +52,11 @@ joynes = {
 
     this.initialize();
     this.socket.onopen = function(evt){
-      self.socket.send('s');
-      self.socket.send(JSON.stringify({ok: 1})); 
+      var partner = document.location.pathname;
+      partner = partner.substring(1, partner.length);
+      // Pair up and let partner know we're
+      // good to receive.
+      self.socket.send(partner);
     }
     this.socket.onmessage = function(evt){
       self.drawCanvas(evt.data);
@@ -57,7 +64,7 @@ joynes = {
     };
     
 
-    this.canvas = $('<canvas class="nes-screen" width="256" height="240">').appendTo('#emulator_2')[0];
+    this.canvas = $('<canvas class="nes-screen" width="256" height="240">').appendTo('#emulator')[0];
 
     $(document).
     bind('keydown', function(evt) {
