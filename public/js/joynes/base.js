@@ -15,6 +15,7 @@ joynes.Base.prototype = {
   },
   
   loadRomData: function(data) {
+    $("#tv").css("background", "black");
     this.nes.loadRom(data);
     this.nes.start();
     this.nes.ui.enable();

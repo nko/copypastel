@@ -49,7 +49,12 @@ joynes = {
   
   Slave : function() {
     var self = this;
+    var static = function(){
+      $("#tv").css("background", "url(/img/static.gif)")
+    };
+    var static_timeout = 3000;
 
+    this.tv = $("#tv");
     this.initialize();
     this.socket.onopen = function(evt){
       var partner = document.location.pathname;
@@ -57,8 +62,13 @@ joynes = {
       // Pair up and let partner know we're
       // good to receive.
       self.socket.send(partner);
+      self.timeout = setTimeout(static, static_timeout);
     }
     this.socket.onmessage = function(evt){
+      self.tv.css("background", "black"); // How to run this only once?
+      // Reset timeout for static background appearance
+      clearTimeout(self.timeout);
+      self.timeout = setTimeout(static, static_timeout);
       self.drawCanvas(evt.data);
       self.socket.send(JSON.stringify({ok: 1}));
     };
