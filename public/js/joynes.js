@@ -50,7 +50,8 @@ joynes = {
   Slave : function() {
     var self = this;
     var static = function(){
-      $("#tv").css("background", "url(/img/static.gif)")
+      $("#tv").css("background", "url(/img/static.gif)");      
+  		$($("canvas").first()).css("opacity", "0");
     };
     var static_timeout = 3000;
 
@@ -65,6 +66,7 @@ joynes = {
       self.timeout = setTimeout(static, static_timeout);
     }
     this.socket.onmessage = function(evt){
+  		$($("canvas").first()).css("opacity", "1");
       self.tv.css("background", "black"); // How to run this only once?
       // Reset timeout for static background appearance
       clearTimeout(self.timeout);
@@ -72,7 +74,6 @@ joynes = {
       self.drawCanvas(evt.data);
       self.socket.send(JSON.stringify({ok: 1}));
     };
-    
 
     this.canvas = $('<canvas class="nes-screen" width="256" height="240">').appendTo('#emulator')[0];
 
