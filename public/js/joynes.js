@@ -7,7 +7,7 @@ joynes = {
     this.initialize();
     this.socket = new WebSocket('ws://' + document.location.hostname + ':8080/');
     this.socket.onopen = function(evt){
-      this.socket.send(0);
+      self.socket.send(0);
     }
 
     this.nes = nes;
